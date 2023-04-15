@@ -1,4 +1,6 @@
+import 'package:ShopList/src/stores/app_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key? key}) : super(key: key);
@@ -10,6 +12,10 @@ class ConfigurationPage extends StatefulWidget {
 class _ConfigurationPageState extends State<ConfigurationPage> {
   @override
   Widget build(BuildContext context) {
+    final appStore = context.watch<AppStore>(
+      (store) => store.themeMode,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shop-List'),
@@ -30,22 +36,28 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             ),
             const SizedBox(height: 10),
             RadioListTile<ThemeMode>(
-              value: ThemeMode.dark,
-              groupValue: ThemeMode.system,
+              value: ThemeMode.system,
+              groupValue: appStore.themeMode.value,
               title: const Text('Sistema'),
-              onChanged: (mode) {},
+              onChanged: (mode) {
+                appStore.themeMode.value = mode!;
+              },
             ),
             RadioListTile<ThemeMode>(
-              value: ThemeMode.dark,
-              groupValue: ThemeMode.light,
+              value: ThemeMode.light,
+              groupValue: appStore.themeMode.value,
               title: const Text('Tema Claro'),
-              onChanged: (mode) {},
+              onChanged: (mode) {
+                appStore.themeMode.value = mode!;
+              },
             ),
             RadioListTile<ThemeMode>(
               value: ThemeMode.dark,
-              groupValue: ThemeMode.dark,
+              groupValue: appStore.themeMode.value,
               title: const Text('Tema Escuro'),
-              onChanged: (mode) {},
+              onChanged: (mode) {
+                appStore.themeMode.value = mode!;
+              },
             ),
             const SizedBox(height: 10),
             Text(
