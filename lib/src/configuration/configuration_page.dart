@@ -15,7 +15,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
         title: const Text('Shop-List'),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
