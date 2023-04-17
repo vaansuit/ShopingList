@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../services/realm/models/task_model.dart';
 
 class TaskCard extends StatelessWidget {
+  
   final TaskBoard board;
-
+  
   const TaskCard({Key? key, required this.board}) : super(key: key);
 
   @override
