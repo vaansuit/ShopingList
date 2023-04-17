@@ -35,24 +35,22 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Stack(
           children: [
-            Padding(
+            ListView.separated(
               padding: const EdgeInsets.only(
                 top: 80,
                 left: 25,
                 right: 25,
-                bottom: 100,
+                bottom: 200,
               ),
-              child: ListView.separated(
-                itemBuilder: (_context, index) {
-                  return const TaskCard();
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 40,
-                  );
-                },
-                itemCount: 50,
-              ),
+              itemBuilder: (_context, index) {
+                return const TaskCard();
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: 20,
+                );
+              },
+              itemCount: 50,
             ),
             Align(
               alignment: Alignment.topCenter,
