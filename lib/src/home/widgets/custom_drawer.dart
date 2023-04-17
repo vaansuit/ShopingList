@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 
 import '../../stores/app_store.dart';
 
@@ -15,6 +16,12 @@ class CustomDrawer extends StatelessWidget {
     );
 
     final syncDate = appStore.syncDate.value;
+    var syncDateText = 'Vazio';
+
+    if (syncDate != null) {
+      final format = DateFormat('dd/MM/yyyy ás hh:mm');
+      syncDateText = format.format(syncDate);
+    }
 
     return NavigationDrawer(
       onDestinationSelected: (index) {
@@ -33,15 +40,18 @@ class CustomDrawer extends StatelessWidget {
         ),
         NavigationDrawerDestination(
           icon: const Icon(Icons.sync),
-          label: Row(
-            children: [
-              const Text('Sincronizar'),
-              const SizedBox(width: 28),
-              Text(
-                '12/12/2022 ás 12:12',
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
+          label: SizedBox(
+            width: 210,
+            child: Row(
+              children: [
+                const Text('Sincronizar'),
+                const Spacer(),
+                Text(
+                  syncDateText,
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
           ),
         ),
         const NavigationDrawerDestination(
