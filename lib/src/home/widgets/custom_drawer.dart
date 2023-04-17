@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../stores/app_store.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -7,6 +10,12 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appStore = context.watch<AppStore>(
+      (store) => store.syncDate,
+    );
+
+    final syncDate = appStore.syncDate.value;
+
     return NavigationDrawer(
       onDestinationSelected: (index) {
         if (index == 1) {
