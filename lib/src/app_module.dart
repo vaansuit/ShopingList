@@ -1,12 +1,15 @@
 import 'package:ShopList/src/configuration/configuration_page.dart';
 import 'package:ShopList/src/home/home_module.dart';
+import 'package:ShopList/src/services/realm/realm_config.dart';
 import 'package:ShopList/src/stores/app_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:realm/realm.dart';
 
 class AppModule extends Module {
   //criando os bindings de gerenciamento de estado
   @override
   List<Bind> get binds => [
+        Bind.instance<Realm>(Realm(config)),
         Bind.singleton((i) => AppStore()),
       ];
 
