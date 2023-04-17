@@ -2,7 +2,7 @@ import 'package:ShopList/src/services/realm/models/configuration_model.dart';
 import 'package:realm/realm.dart';
 
 abstract class ConfigurationService {
-  ConfigurationModel getConfigurationModel();
+  ConfigurationModel getConfiguration();
   void saveConfiguration(String themModeName, DateTime? date);
   void deleteAll();
 }
@@ -14,13 +14,13 @@ class ConfigurationServiceImpl implements ConfigurationService {
   ConfigurationServiceImpl(this.realm);
 
   @override
-  ConfigurationModel getConfigurationModel() {
+  ConfigurationModel getConfiguration() {
     return realm.all<ConfigurationModel>().first;
   }
 
   @override
   void saveConfiguration(String themModeName, DateTime? date) {
-    final model = getConfigurationModel();
+    final model = getConfiguration();
     realm.write(() {
       model.themeModeName = themModeName;
       model.syncDate = date;

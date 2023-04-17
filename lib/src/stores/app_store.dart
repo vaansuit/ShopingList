@@ -1,3 +1,4 @@
+import 'package:ShopList/src/configuration/service/configuration_service.dart';
 import 'package:flutter/material.dart';
 
 class AppStore {
@@ -8,7 +9,26 @@ class AppStore {
   //Resolvendo a questão da data de sincronização
   final syncDate = ValueNotifier<DateTime?>(null);
 
-  AppStore();
+  final ConfigurationService _configurationService;
+
+  AppStore(this._configurationService) {
+    init();
+  }
+
+  //Iniciando os dados
+  void init() {
+    final model = _configurationService.getConfiguration();
+    syncDate.value = model.syncDate;
+    themeMode.value = _getThemeModeByName(model.themeModeName);
+  }
+
+  //Salvando os dados
+  void save() {
+    _configurationService.saveConfiguration(
+      themeMode.value.name,
+      syncDate.value,
+    );
+  }
 
   //metodo para fazer a modificacao, refatorado
   void changeThemeMode(ThemeMode? mode) {
@@ -24,9 +44,7 @@ class AppStore {
     save();
   }
 
-  //Iniciando os dados
-  void init() {}
-
-  //Salvando os dados
-  void save() {}
+  ThemeMode _getThemeModeByName(String name) {
+    return ThemeMode.values.firstWhere((mode) => mode.name == name);
+  }
 }
