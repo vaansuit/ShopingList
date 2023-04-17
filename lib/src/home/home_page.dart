@@ -1,3 +1,4 @@
+import 'package:ShopList/src/home/widgets/task_card.dart';
 import 'package:ShopList/src/widgets/user_image_button.dart';
 import 'package:flutter/material.dart';
 
@@ -32,31 +33,53 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       body: Center(
-        child: Column(
+        child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
-              child: SegmentedButton<int>(
-                segments: const [
-                  ButtonSegment(
-                    value: 0,
-                    label: Text('Todos'),
-                  ),
-                  ButtonSegment(
-                    value: 1,
-                    label: Text('Pendentes'),
-                  ),
-                  ButtonSegment(
-                    value: 2,
-                    label: Text('Concluídos'),
-                  ),
-                  ButtonSegment(
-                    value: 3,
-                    label: Text('Desativados'),
-                  ),
-                ],
-                selected: const {1},
-                onSelectionChanged: (values) {},
+              padding: const EdgeInsets.only(
+                top: 80,
+                left: 25,
+                right: 25,
+                bottom: 100,
+              ),
+              child: ListView.separated(
+                itemBuilder: (_context, index) {
+                  return const TaskCard();
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 40,
+                  );
+                },
+                itemCount: 50,
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SegmentedButton<int>(
+                  segments: const [
+                    ButtonSegment(
+                      value: 0,
+                      label: Text('Todos'),
+                    ),
+                    ButtonSegment(
+                      value: 1,
+                      label: Text('Pendentes'),
+                    ),
+                    ButtonSegment(
+                      value: 2,
+                      label: Text('Concluídos'),
+                    ),
+                    ButtonSegment(
+                      value: 3,
+                      label: Text('Desativados'),
+                    ),
+                  ],
+                  selected: const {1},
+                  onSelectionChanged: (values) {},
+                ),
               ),
             ),
           ],
