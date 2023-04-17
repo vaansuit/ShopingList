@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../services/realm/models/task_model.dart';
+
 class TaskCard extends StatelessWidget {
-  const TaskCard({Key? key}) : super(key: key);
+  final TaskBoard board;
+
+  const TaskCard({Key? key, required this.board}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +15,7 @@ class TaskCard extends StatelessWidget {
     final backgroundColor = Colors.blue.withOpacity(0.5);
     const color = Colors.blue;
     const statusText = 'Pendente';
+    const iconData = Icons.access_alarm;
 
     return Container(
       height: 200,
@@ -27,7 +32,7 @@ class TaskCard extends StatelessWidget {
         children: [
           Row(
             children: const [
-              Icon(Icons.ads_click),
+              Icon(iconData),
               Spacer(),
               Text(statusText),
             ],

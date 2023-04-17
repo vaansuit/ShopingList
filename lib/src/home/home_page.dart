@@ -1,7 +1,9 @@
 import 'package:ShopList/src/home/widgets/task_card.dart';
 import 'package:ShopList/src/widgets/user_image_button.dart';
 import 'package:flutter/material.dart';
+import 'package:realm/realm.dart';
 
+import '../services/realm/models/task_model.dart';
 import 'widgets/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,7 +45,8 @@ class _HomePageState extends State<HomePage> {
                 bottom: 200,
               ),
               itemBuilder: (_context, index) {
-                return const TaskCard();
+                final board = TaskBoard(Uuid.v4(), 'Nova Lista de Tarefas 1');
+                return TaskCard(board: board);
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(
