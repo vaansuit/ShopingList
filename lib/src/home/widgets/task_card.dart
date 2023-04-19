@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../services/realm/models/task_model.dart';
 
-
 enum TaskCardStatus {
-  pending(Icons.access_time, 'Pendentes'), 
-  completed(Icons.check, 'Concluídas'), 
+  pending(Icons.access_time, 'Pendentes'),
+  completed(Icons.check, 'Concluídas'),
   disabled(Icons.cancel_outlined, 'Desativadas');
 
   final IconData icon;
@@ -13,23 +12,21 @@ enum TaskCardStatus {
 
   const TaskCardStatus(this.icon, this.text);
 }
+
 class TaskCard extends StatelessWidget {
-  
   final TaskBoard board;
-  
+
   const TaskCard({Key? key, required this.board}) : super(key: key);
 
   double getProgress(List<Task> tasks) {
-
-    if(tasks.isEmpty) {
+    if (tasks.isEmpty) {
       return 0;
     }
     final complete = tasks.where((task) => task.complete).length;
     return complete / tasks.length;
   }
-  String getProgressText(List<Task> tasks) {
 
-    
+  String getProgressText(List<Task> tasks) {
     final complete = tasks.where((task) => task.complete).length;
     return '$complete / ${tasks.length}';
   }
@@ -44,25 +41,25 @@ class TaskCard extends StatelessWidget {
     }
   }
 
-  Color getBackgroundColor (TaskCardStatus status, ThemeData theme) {
+  Color getBackgroundColor(TaskCardStatus status, ThemeData theme) {
     switch (status) {
       case TaskCardStatus.pending:
-      return theme.colorScheme.primaryContainer;
+        return theme.colorScheme.primaryContainer;
       case TaskCardStatus.completed:
-      return theme.colorScheme.tertiaryContainer;
+        return theme.colorScheme.tertiaryContainer;
       case TaskCardStatus.disabled:
-      return theme.colorScheme.errorContainer;
+        return theme.colorScheme.errorContainer;
     }
   }
 
-  Color getColor (TaskCardStatus status, ThemeData theme) {
+  Color getColor(TaskCardStatus status, ThemeData theme) {
     switch (status) {
       case TaskCardStatus.pending:
-      return theme.colorScheme.primary;
+        return theme.colorScheme.primary;
       case TaskCardStatus.completed:
-      return theme.colorScheme.tertiary;
+        return theme.colorScheme.tertiary;
       case TaskCardStatus.disabled:
-      return theme.colorScheme.error;
+        return theme.colorScheme.error;
     }
   }
 
@@ -77,7 +74,7 @@ class TaskCard extends StatelessWidget {
 
     final backgroundColor = getBackgroundColor(status, theme);
     final color = getColor(status, theme);
-    
+
     final statusText = status.text;
     final iconData = status.icon;
 
@@ -95,19 +92,48 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children:  [
-              Icon(iconData),
+            children: [
+              Icon(
+                iconData,
+                color: theme.iconTheme.color?.withOpacity(0.5),
+              ),
               const Spacer(),
-              Text(statusText),
+              Text(
+                statusText,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.textTheme.bodyMedium?.color?.withOpacity(0.5),
+                ),
+              ),
             ],
           ),
           const Spacer(),
-          Text(title),
-          LinearProgressIndicator(
+          Text(
+            title,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (board.tasks.isNotEmpty)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LinearProgressIndicator(
             value: progress,
             color: color,
           ),
-          Text(progressText),
+          const SizedBox(height: 2),
+          Text(
+            progressText,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.textTheme.bodyMedium?.color?.withOpacity(0.5),
+            ),
+          ),
+            ],
+          ),
         ],
       ),
     );
