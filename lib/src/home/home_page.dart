@@ -45,7 +45,15 @@ class _HomePageState extends State<HomePage> {
                 bottom: 200,
               ),
               itemBuilder: (_context, index) {
-                final board = TaskBoard(Uuid.v4(), 'Nova Lista de Tarefas 1');
+                final board = TaskBoard(
+                    Uuid.v4(),
+                    'Nova Lista de Tarefas 1',
+                    tasks:  [
+                      Task(Uuid.v4(), '', complete: true),
+                      Task(Uuid.v4(), '', complete: true),
+                      Task(Uuid.v4(), '', complete: true),
+                      Task(Uuid.v4(), '', complete: true),
+                    ]);
                 return TaskCard(board: board);
               },
               separatorBuilder: (context, index) {
