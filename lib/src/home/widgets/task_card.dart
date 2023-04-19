@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../services/realm/models/task_model.dart';
 
+
+enum TaskCardStatus {
+  pending(Icons.access_time, 'Pendentes'), completed(Icons.check, 'Concluídas'), disabled(Icons.cancel_outlined, 'Desativadas');
+
+  final IconData icon;
+  final String text;
+
+  const TaskCardStatus(this.icon, this.text);
+}
 class TaskCard extends StatelessWidget {
   
   final TaskBoard board;
@@ -16,11 +25,17 @@ class TaskCard extends StatelessWidget {
     final complete = tasks.where((task) => task.complete).length;
     return complete / tasks.length;
   }
+  String getProgressText(List<Task> tasks) {
+
+    
+    final complete = tasks.where((task) => task.complete).length;
+    return '$complete / ${tasks.length}';
+  }
 
   @override
   Widget build(BuildContext context) {
     final progress = getProgress(board.tasks);
-    const progressText = '1/5';
+    final progressText = getProgressText(board.tasks);
     final title = board.title;
     final backgroundColor = Colors.blue.withOpacity(0.5);
     const color = Colors.blue;
@@ -53,7 +68,7 @@ class TaskCard extends StatelessWidget {
             value: progress,
             color: color,
           ),
-          const Text(progressText),
+          Text(progressText),
         ],
       ),
     );
