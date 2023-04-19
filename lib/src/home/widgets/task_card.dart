@@ -8,11 +8,20 @@ class TaskCard extends StatelessWidget {
   
   const TaskCard({Key? key, required this.board}) : super(key: key);
 
+  double getProgress(List<Task> tasks) {
+
+    if(tasks.isEmpty) {
+      return 0;
+    }
+    final complete = tasks.where((task) => task.complete).length;
+    return complete / tasks.length;
+  }
+
   @override
   Widget build(BuildContext context) {
-    const progress = 0.2;
+    final progress = getProgress(board.tasks);
     const progressText = '1/5';
-    const title = 'Título';
+    final title = board.title;
     final backgroundColor = Colors.blue.withOpacity(0.5);
     const color = Colors.blue;
     const statusText = 'Pendente';
@@ -39,8 +48,8 @@ class TaskCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          const Text(title),
-          const LinearProgressIndicator(
+          Text(title),
+          LinearProgressIndicator(
             value: progress,
             color: color,
           ),
